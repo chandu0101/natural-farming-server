@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.util.Timeout
 import com.chandu0101.nfarming.routes._
 import spray.routing.SimpleRoutingApp
+import util.Properties
 
 import scala.concurrent.duration.DurationLong
 
@@ -13,9 +14,11 @@ import scala.concurrent.duration.DurationLong
 object NFarmingServer extends App with SimpleRoutingApp {
 
   implicit lazy val actroSystem = ActorSystem()
-  implicit val timeout = Timeout(1.second)
+//  implicit val timeout = Timeout(1.second)
 
-  startServer(interface = "localhost", port = 8080) {
+  val port = Properties.envOrElse("PORT", "8080").toInt
+
+  startServer(interface = "0.0.0.0", port = port) {
     SeedsRoute.route
   }
 
