@@ -1,5 +1,9 @@
 import spray.revolver.RevolverPlugin._
 
+import NativePackagerKeys._
+
+packageArchetype.java_application
+
 name := "natural-farming-server"
 
 version := "1.0"
@@ -23,3 +27,4 @@ libraryDependencies ++= Seq(
 )
 
 Revolver.settings: Seq[sbt.Def.Setting[_]]
+

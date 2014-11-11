@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/natural-farming-client
+web: target/universal/stage/bin/nfarming
