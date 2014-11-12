@@ -1,8 +1,7 @@
 package com.chandu0101.nfarming.routes
 
 import com.chandu0101.nfarming.security.TokenAuthenticator
-import spray.http.MediaTypes
-import spray.routing.{Directive1, Directives, Route}
+import spray.routing.{Directive1, Directives}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -12,21 +11,17 @@ import scala.concurrent.Future
  */
 object RouteUtil extends Directives {
 
-  def getJson(route: Route) = {
-    auth { _ =>
-      respondWithMediaType(MediaTypes.`application/json`) {
-        route
-      }
-    }
-
-  }
-
   val authenticator = TokenAuthenticator[String]("api_token", "api_token") {
     key => Future {
       if (key == "secret") Some("success") else None
     }
   }
-
   def auth: Directive1[String] = authenticate(authenticator)
 
+  lazy val routes =
+    auth { _ =>
+      SeedsRoute.route
+    }
 }
+
+
