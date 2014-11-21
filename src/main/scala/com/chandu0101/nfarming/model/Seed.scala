@@ -5,9 +5,9 @@ import reactivemongo.bson.{BSONDocument, BSONDocumentReader, BSONDocumentWriter}
 /**
  * Created by chandrasekharkode on 11/10/14.
  */
-case class Seed(name: String, category: String, duration: String, location: Position, info: String)
+case class Seed(name: String, category: String, duration: Int, location: Position, info: String)
 
-case class Position(long : Int, lat: Int)
+case class Position(long : Double, lat: Double)
 
 object Position {
 
@@ -16,8 +16,8 @@ object Position {
 
   implicit object PositionReader extends BSONDocumentReader[Position] {
     override def read(bson: BSONDocument): Position = {
-      val lon = bson.getAs[Int](LONGITUDE).get
-      val lat = bson.getAs[Int](LATITUDE).get
+      val lon = bson.getAs[Double](LONGITUDE).get
+      val lat = bson.getAs[Double](LATITUDE).get
       Position(lon, lat)
     }
   }
@@ -45,7 +45,7 @@ object Seed {
     def read(doc: BSONDocument): Seed = {
       val name = doc.getAs[String](NAME).get
       val category = doc.getAs[String](CATEGORY).get
-      val duration = doc.getAs[String](DURATION).get
+      val duration = doc.getAs[Int](DURATION).get
       val location = doc.getAs[Position](LOCATION).get
       val info = doc.getAs[String](INFO).get
 
