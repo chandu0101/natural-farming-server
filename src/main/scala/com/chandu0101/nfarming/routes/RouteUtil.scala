@@ -9,7 +9,7 @@ import scala.concurrent.Future
 /**
  * Created by chandrasekharkode on 11/10/14.
  */
-object RouteUtil extends Directives {
+object RouteUtil extends Directives with CrosSupport with  SprayCORSsupport  {
 
   val authenticator = TokenAuthenticator[String]("api_token", "api_token") {
     key => Future {
@@ -20,7 +20,11 @@ object RouteUtil extends Directives {
 
   lazy val routes =
     auth { _ =>
-      SeedsRoute.route
+      cors {
+        addCORSDefaultSupport() {
+          SeedsRoute.route
+        }
+      }
     }
 }
 
