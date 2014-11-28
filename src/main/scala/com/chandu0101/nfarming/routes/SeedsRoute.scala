@@ -45,6 +45,13 @@ object SeedsRoute extends Directives {
               }
             }
           }
+        } ~
+        get {
+          path("clearcache") {
+            complete {
+              SeedsService.clearChache()
+            }
+          }
         }
     }
   }

@@ -22,6 +22,7 @@ val sprayVersion = "1.3.1"
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % "2.3.6",
   "io.spray" %% "spray-routing" % sprayVersion,
+  "io.spray" %% "spray-caching" % sprayVersion,
   "io.spray" %% "spray-client" % sprayVersion,
   "io.spray" %% "spray-testkit" % sprayVersion % "test",
   "io.spray" %% "spray-json" % "1.2.6", // 1.3 is not compatible with spray routing 1.3.1

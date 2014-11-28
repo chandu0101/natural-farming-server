@@ -5,14 +5,14 @@ import reactivemongo.bson.{BSONDocument, BSONDocumentReader, BSONDocumentWriter}
 /**
  * Created by chandrasekharkode on 11/10/14.
  */
-case class Seed(name: String, category: String, duration: Int, location: Position, info: String)
+case class Seed(name: String, category: String, duration: Int, location: List[Position], info: String)
 
-case class Position(long : Double, lat: Double)
+case class Position(lng : Double, lat: Double)
 
 object Position {
 
-  val LONGITUDE = "lon"
-  val LATITUDE = "lan"
+  val LONGITUDE = "lng"
+  val LATITUDE = "lat"
 
   implicit object PositionReader extends BSONDocumentReader[Position] {
     override def read(bson: BSONDocument): Position = {
@@ -24,7 +24,7 @@ object Position {
 
   implicit object PositionWriter extends BSONDocumentWriter[Position] {
     override def write(t: Position): BSONDocument = {
-      BSONDocument(LONGITUDE -> t.long,
+      BSONDocument(LONGITUDE -> t.lng,
         LATITUDE -> t.lat)
 
     }
@@ -46,7 +46,7 @@ object Seed {
       val name = doc.getAs[String](NAME).get
       val category = doc.getAs[String](CATEGORY).get
       val duration = doc.getAs[Int](DURATION).get
-      val location = doc.getAs[Position](LOCATION).get
+      val location = doc.getAs[List[Position]](LOCATION).get
       val info = doc.getAs[String](INFO).get
 
       Seed(name, category, duration, location, info);
